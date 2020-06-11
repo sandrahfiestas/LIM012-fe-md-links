@@ -45,8 +45,16 @@ const checkDirectory = (namePath) => {
 const isMd = (namePath) => (path.extname(namePath) === '.md');
 
 
-
-
+// Filtra archivos .md almacenandolos en un array
+const filterIsMd = (arryFile) => {
+  const arrayIsMd = [];
+  arryFile.forEach((element) => {
+    if (path.extname(element) === '.md') {
+      arrayIsMd.push(element);
+    }
+  });
+  return arrayIsMd;
+};
 
 
 
@@ -74,4 +82,5 @@ module.exports = {
   isDirectory,
   checkDirectory,
   isMd,
+  filterIsMd,
 };

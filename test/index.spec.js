@@ -13,6 +13,14 @@ const arryfilesDirectory = [
 ];
 const fileMd = 'README.md';
 const fileTxt = 'text.txt';
+const arrFile = [
+  'D:\\LIM012-fe-md-links\\.eslintrc.js',
+  'D:\\LIM012-fe-md-links\\.gitignore',
+  'D:\\LIM012-fe-md-links\\README.md',
+];
+const arrFileMd = ['D:\\LIM012-fe-md-links\\README.md'];
+
+
 
 
 // ¿La ruta es absoluta?
@@ -83,5 +91,12 @@ describe('isMd()', () => {
 
   it('debería retornar false si no es un arhivo .md', () => {
     expect(index.isMd(fileTxt)).toBe(false);
+  });
+});
+
+// Filtra archivos .md almacenandolos en un array
+describe('filterIsMd()', () => {
+  it('debería almacenar en un array los archivos con extensión .md', () => {
+    expect(index.filterIsMd(arrFile)).toEqual(arrFileMd);
   });
 });
