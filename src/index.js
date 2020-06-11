@@ -57,6 +57,27 @@ const filterIsMd = (arryFile) => {
 };
 
 
+// Retornará un array de objetos con tres propiedades
+const findUrl = (mdfile) => {
+  const data = fs.readFileSync(mdfile, 'utf8');
+  const toString = data.toString();
+  const regExp = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)/g;
+  const regExprText = /(?:[^[])([^[]*)(?=(\]+\(((https?:\/\/)|(http?:\/\/)|(www\.))))/g;
+  const links = toString.match(regExp);
+  const text = toString.match(regExprText);
+  const urls = [];
+  if (links) {
+    for (let i = 0; i < links.length; i += 1) {
+      const linkElement = {
+        href: links[i],
+        text: text[i],
+        file: mdfile,
+      };
+      urls.push(linkElement);
+    }
+  }
+  return urls;
+};
 
 
 // Probando paleta CLI
@@ -83,4 +104,5 @@ module.exports = {
   checkDirectory,
   isMd,
   filterIsMd,
+  findUrl,
 };

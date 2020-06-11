@@ -20,7 +20,20 @@ const arrFile = [
 ];
 const arrFileMd = ['D:\\LIM012-fe-md-links\\README.md'];
 
-
+const mdNoLinks = 'D:\\LIM012-fe-md-links\\data\\mdNoLink.md';
+const mdContainLinks = 'D:\\LIM012-fe-md-links\\data\\mdContainLink.md';
+const arrContainLinks = [
+  {
+    href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions',
+    text: 'expresiones regulares (`RegExp`)',
+    file: 'D:\\LIM012-fe-md-links\\data\\mdContainLink.md',
+  },
+  {
+    href: 'https://carlosazaustre.com/manejando-la-asincronia-en-javascript/',
+    text: 'Asíncronía en js',
+    file: 'D:\\LIM012-fe-md-links\\data\\mdContainLink.md',
+  },
+];
 
 
 // ¿La ruta es absoluta?
@@ -98,5 +111,17 @@ describe('isMd()', () => {
 describe('filterIsMd()', () => {
   it('debería almacenar en un array los archivos con extensión .md', () => {
     expect(index.filterIsMd(arrFile)).toEqual(arrFileMd);
+  });
+});
+
+// Obtener links de un archivo .md
+describe('findUrl()', () => {
+  // no reconoce el toEqual(undefined)
+  it('debería devolver un array vacio si el archivo .md no contiene links', () => {
+    expect(index.findUrl(mdNoLinks)).toEqual([]);
+  });
+
+  it('debería obtener el array de links que contiene el archivo .md', () => {
+    expect(index.findUrl(mdContainLinks)).toEqual(arrContainLinks);
   });
 });
