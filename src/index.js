@@ -19,6 +19,29 @@ const isDirectory = (namePath) => fs.statSync(namePath).isDirectory();
 console.log('¿es un directorio', isDirectory('D:\\LIM012-fe-md-links\\src'));
 
 
+// Recorre directorio
+const checkDirectory = (namePath) => {
+  let arrayFile = [];
+  // const newPath = convertToAbsolute(namePath);
+  if (!isDirectory(namePath)) {
+    // Si no es un directorio lo almacena en array
+    arrayFile.push(namePath);
+  } else {
+    // Lista de contenidos del directorio
+    const readDirectory = fs.readdirSync(namePath);
+    // Iterará sobre el array
+    readDirectory.map((obj) => {
+      //
+      const element = path.join(namePath, obj);
+      const result = (isDirectory(element)) ? arrayFile = arrayFile.concat(checkDirectory(element)) : arrayFile.push(element);
+      return result;
+    });
+  }
+  return arrayFile;
+};
+
+
+
 // Probando paleta CLI
 const error = clc.red.bold;
 const warn = clc.yellow;
@@ -32,9 +55,13 @@ console.log('¡Error!'.red);
 console.log('Advertencia'.yellow);
 console.log('Aviso'.blue);
 
+
+
+
 module.exports = {
   pathIsAbsolute,
   convertToAbsolute,
   isFile,
   isDirectory,
+  checkDirectory,
 };

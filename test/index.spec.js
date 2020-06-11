@@ -4,7 +4,13 @@ const pathAbsolute = 'D:\\LIM012-fe-md-links\\src';
 const pathRelative = './src';
 const pathDirectory = 'D:\\LIM012-fe-md-links\\test';
 const pathFile = 'D:\\LIM012-fe-md-links\\README.md';
-
+const arrypathFile = ['D:\\LIM012-fe-md-links\\README.md'];
+const pathDirectoryX = 'D:\\LIM012-fe-md-links\\data\\';
+const arryfilesDirectory = [
+  'D:\\LIM012-fe-md-links\\data\\mdContainLink.md',
+  'D:\\LIM012-fe-md-links\\data\\mdNoLink.md',
+  'D:\\LIM012-fe-md-links\\data\\script.js',
+];
 
 // ¿La ruta es absoluta?
 describe('pathIsAbsolute', () => {
@@ -48,5 +54,19 @@ describe('isDirectory()', () => {
 
   it('debería retornar false si la ruta no es un directorio', () => {
     expect(index.isDirectory(pathFile)).toBe(false);
+  });
+});
+
+// Recorrer el directorio almacenando en un array sus subdirectorios
+describe('checkDirectory', () => {
+  it('debería ser una función', () => {
+    expect(typeof index.checkDirectory).toBe('function');
+  });
+  it('debería devolver un array de contenidos del directorio', () => {
+    expect(index.checkDirectory(pathDirectoryX)).toEqual(arryfilesDirectory);
+  });
+
+  it('debería devolver un array al no ser un directorio', () => {
+    expect(index.checkDirectory(pathFile)).toEqual(arrypathFile);
   });
 });
