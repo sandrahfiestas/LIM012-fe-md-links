@@ -11,6 +11,9 @@ const arryfilesDirectory = [
   'D:\\LIM012-fe-md-links\\data\\mdNoLink.md',
   'D:\\LIM012-fe-md-links\\data\\script.js',
 ];
+const fileMd = 'README.md';
+const fileTxt = 'text.txt';
+
 
 // ¿La ruta es absoluta?
 describe('pathIsAbsolute', () => {
@@ -68,5 +71,17 @@ describe('checkDirectory', () => {
 
   it('debería devolver un array al no ser un directorio', () => {
     expect(index.checkDirectory(pathFile)).toEqual(arrypathFile);
+  });
+});
+
+
+// ¿Es un archivo .md?
+describe('isMd()', () => {
+  it('debería retornar true si es un archivo .md', () => {
+    expect(index.isMd(fileMd)).toBe(true);
+  });
+
+  it('debería retornar false si no es un arhivo .md', () => {
+    expect(index.isMd(fileTxt)).toBe(false);
   });
 });

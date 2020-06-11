@@ -40,6 +40,15 @@ const checkDirectory = (namePath) => {
   return arrayFile;
 };
 
+// ¿Es un archivo .md?
+// const isMd = (namePath) => path.extname(namePath) === '.md' ? true : false;
+const isMd = (namePath) => (path.extname(namePath) === '.md');
+
+
+
+
+
+
 
 
 // Probando paleta CLI
@@ -64,4 +73,5 @@ module.exports = {
   isFile,
   isDirectory,
   checkDirectory,
+  isMd,
 };
