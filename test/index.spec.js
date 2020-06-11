@@ -34,6 +34,22 @@ const arrContainLinks = [
     file: 'D:\\LIM012-fe-md-links\\data\\mdContainLink.md',
   },
 ];
+const arrcontentLinksOkFail = [
+  {
+    href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions',
+    text: 'expresiones regulares (`RegExp`)',
+    file: 'D:\\LIM012-fe-md-links\\data\\mdContainLink.md',
+    status: 200,
+    statustext: 'ok',
+  },
+  {
+    href: 'https://carlosazaustre.com/manejando-la-asincronia-en-javascript/',
+    text: 'Asíncronía en js',
+    file: 'D:\\LIM012-fe-md-links\\data\\mdContainLink.md',
+    status: 404,
+    statustext: 'fail',
+  },
+];
 
 
 // ¿La ruta es absoluta?
@@ -123,5 +139,18 @@ describe('findUrl()', () => {
 
   it('debería obtener el array de links que contiene el archivo .md', () => {
     expect(index.findUrl(mdContainLinks)).toEqual(arrContainLinks);
+  });
+});
+
+// Validate
+describe('validateLinks', () => {
+  it('debería ser una función', () => {
+    expect(typeof index.validateLinks).toBe('function');
+  });
+  test('debería devolver un array de objetos con cinco propiedades', () => {
+    return expect(index.validateLinks(mdContainLinks)).resolves.toEqual(arrcontentLinksOkFail);
+  });
+  test('debería devolver un array vacio si el archivo no tiene enlaces', () => {
+    return expect(index.validateLinks(mdNoLinks)).resolves.toEqual([]);
   });
 });

@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const path = require('path');
 const fs = require('fs');
+const fetch = require('node-fetch');
 const clc = require('cli-color');
 // const colors = require('colors');
 
@@ -79,6 +80,38 @@ const findUrl = (mdfile) => {
   return urls;
 };
 
+// Validación de links
+const validateLinks = (mdfile) => {
+  const allLinks = findUrl(mdfile);
+  const arrayPromise = allLinks.map((e) => new Promise((resolve) => fetch(e.href)
+    .then((response) => {
+      e.status = response.status;
+      if (response.status >= 200 && response.status < 400) {
+        e.statustext = 'ok';
+      }
+      if (response.status >= 404) {
+        e.statustext = 'fail';
+      }
+      resolve(e);
+    })
+    .catch(() => {
+      e.status = 404;
+      e.statustext = 'fail';
+      resolve(e);
+    })));
+  return Promise.all(arrayPromise);
+};
+
+
+/*
+// practicando fetch
+fetch('https://github.com/sandrahfiestas')
+  .then((res) => {
+    console.log(res);
+    return res.json();
+  });
+*/
+
 
 // Probando paleta CLI
 const error = clc.red.bold;
@@ -105,4 +138,5 @@ module.exports = {
   isMd,
   filterIsMd,
   findUrl,
+  validateLinks,
 };
