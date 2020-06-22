@@ -51,6 +51,16 @@ const statsLinks = (linksArr) => {
 console.log(statsLinks(linksArry));
 
 
+// Contabiliza links: Broken
+const statsLinksBroken = (linksArr) => {
+  const brokenLinks = linksArr.filter((element) => element.statusText === 'fail').length;
+  const result = `
+  Broken: ${brokenLinks}`;
+  return result;
+};
+console.log(statsLinksBroken(linksArry));
+
+
 module.exports = {
   statsLinks,
 };
