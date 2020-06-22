@@ -51,6 +51,7 @@ const statsLinks = (linksArr) => {
 console.log(statsLinks(linksArry));
 
 
+/*
 // Contabiliza links: Broken
 const statsLinksBroken = (linksArr) => {
   const brokenLinks = linksArr.filter((element) => element.statusText === 'fail').length;
@@ -59,7 +60,20 @@ const statsLinksBroken = (linksArr) => {
   return result;
 };
 console.log(statsLinksBroken(linksArry));
+*/
 
+// Contabiliza links: Totals, Unique y Broken
+const statsAllLinks = (linksArr) => {
+  const totalLinks = linksArr.length;
+  const uniqueLinks = [...new Set(linksArr.map((links) => links.href))].length;
+  const brokenLinks = linksArr.filter((element) => element.statusText === 'fail').length;
+  const result = `
+  ✔ Total: ${totalLinks}
+  ✔ Unique: ${uniqueLinks}
+  ✖ Broken: ${brokenLinks}`;
+  return result;
+};
+ console.log(statsAllLinks(linksArry));
 
 module.exports = {
   statsLinks,
