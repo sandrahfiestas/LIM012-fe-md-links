@@ -1,5 +1,12 @@
 const path = require('path');
-const index = require('../src/utils.js');
+const fetchMock = require('../__mocks__/node-fetch.js');
+const utils = require('../src/utils.js');
+
+fetchMock
+  .mock('https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions', 200)
+  .mock('https://carlosazaustre.com/manejando-la-asincronia-en-javascript/', 404)
+  .mock('https://www.w3schools.com/tags/asdadadd', 404);
+
 
 const pathAbsolute = path.resolve('./data');
 const pathFile = './data/script.js';
@@ -67,33 +74,33 @@ const arrcontentLinksOkFail = [
 // ¿La ruta es absoluta?
 describe('pathIsAbsolute', () => {
   it('deberia retornar false si la ruta no es absoluta', () => {
-    expect(index.pathIsAbsolute('./data')).toBe(false);
+    expect(utils.pathIsAbsolute('./data')).toBe(false);
   });
 
   it('deberia retornar true si la ruta es absoluta', () => {
-    expect(index.pathIsAbsolute(pathAbsolute)).toBe(true);
+    expect(utils.pathIsAbsolute(pathAbsolute)).toBe(true);
   });
 });
 
 // Convertir en absoluta
 describe('convertToAbsolute()', () => {
   it('deberia retornar una ruta absoluta al ingesar una ruta absoluta', () => {
-    expect(index.convertToAbsolute(pathAbsolute)).toBe(pathAbsolute);
+    expect(utils.convertToAbsolute(pathAbsolute)).toBe(pathAbsolute);
   });
 
   it('debería retornar una ruta absoluta al ingresar una ruta relativa', () => {
-    expect(index.convertToAbsolute('./data')).toBe(pathAbsolute);
+    expect(utils.convertToAbsolute('./data')).toBe(pathAbsolute);
   });
 });
 
 // ¿Es un archivo?
 describe('isfile()', () => {
   it('debería retornar true si la ruta es un archivo', () => {
-    expect(index.isFile(pathFile)).toBe(true);
+    expect(utils.isFile(pathFile)).toBe(true);
   });
 
   it('debería retornar false si la ruta no es un archivo', () => {
-    expect(index.isFile(pathAbsolute)).toBe(false);
+    expect(utils.isFile(pathAbsolute)).toBe(false);
   });
 });
 
@@ -101,25 +108,25 @@ describe('isfile()', () => {
 // ¿Es un directorio?
 describe('isDirectory()', () => {
   it('debería retornar true si la ruta es a un directorio', () => {
-    expect(index.isDirectory(pathAbsolute)).toBe(true);
+    expect(utils.isDirectory(pathAbsolute)).toBe(true);
   });
 
   it('debería retornar false si la ruta no es un directorio', () => {
-    expect(index.isDirectory(pathFile)).toBe(false);
+    expect(utils.isDirectory(pathFile)).toBe(false);
   });
 });
 
 // Recorrer directorio almacendo los archivos en un array
 describe('checkDirectory', () => {
   it('debería ser una función', () => {
-    expect(typeof index.checkDirectory).toBe('function');
+    expect(typeof utils.checkDirectory).toBe('function');
   });
   it('debería devolver un array de archivos del(los) directorio(s)', () => {
-    expect(index.checkDirectory(pathAbsolute)).toEqual(arryfilesDirectory);
+    expect(utils.checkDirectory(pathAbsolute)).toEqual(arryfilesDirectory);
   });
 
   it('debería devolver un array al no ser un directorio', () => {
-    expect(index.checkDirectory(pathFile)).toEqual(arrypathFile);
+    expect(utils.checkDirectory(pathFile)).toEqual(arrypathFile);
   });
 });
 
@@ -127,18 +134,18 @@ describe('checkDirectory', () => {
 // ¿Es un archivo .md?
 describe('isMd()', () => {
   it('debería retornar true si es un archivo .md', () => {
-    expect(index.isMd(pathMd)).toBe(true);
+    expect(utils.isMd(pathMd)).toBe(true);
   });
 
   it('debería retornar false si no es un arhivo .md', () => {
-    expect(index.isMd(pathFile)).toBe(false);
+    expect(utils.isMd(pathFile)).toBe(false);
   });
 });
 
 // Filtra archivos .md almacenandolos en un array
 describe('filterIsMd()', () => {
   it('debería almacenar en un array los archivos con extensión .md', () => {
-    expect(index.filterIsMd(arrFile)).toEqual(arrFileMd);
+    expect(utils.filterIsMd(arrFile)).toEqual(arrFileMd);
   });
 });
 
@@ -146,21 +153,36 @@ describe('filterIsMd()', () => {
 describe('findUrl()', () => {
   // no reconoce el toEqual(undefined)
   it('debería devolver un array vacio si el archivo .md no contiene links', () => {
-    expect(index.findUrl(mdNoLinks)).toEqual([]);
+    expect(utils.findUrl(mdNoLinks)).toEqual([]);
   });
 
   it('debería obtener el array de links que contiene el archivo .md', () => {
-    expect(index.findUrl(pathMd)).toEqual(arrContainLinks);
+    expect(utils.findUrl(pathMd)).toEqual(arrContainLinks);
   });
 });
+
 
 // Validate
 describe('validateLinks', () => {
   it('debería ser una función', () => {
-    expect(typeof index.validateLinks).toBe('function');
+    expect(typeof utils.validateLinks).toBe('function');
   });
-  it('debería devolver un array de objetos con cinco propiedades',
-    () => expect(index.validateLinks(pathMd)).resolves.toEqual(arrcontentLinksOkFail));
-  it('debería devolver un array vacio si el archivo no tiene enlaces',
-    () => expect(index.validateLinks(mdNoLinks)).resolves.toEqual([]));
+
+  it('debería devolver un array de objetos con cinco propiedades', (done) => {
+    utils.validateLinks(pathMd).then((res) => {
+      expect(res).toEqual(arrcontentLinksOkFail);
+      done();
+    })
+      .catch(() => done());
+  });
 });
+
+
+// // Validate
+// describe('validateLinks', () => {
+//   it('debería ser una función', () => {
+//     expect(typeof utils.validateLinks).toBe('function');
+//   });
+//   it('debería devolver un array de objetos con cinco propiedades',
+//     () => expect(utils.validateLinks(pathMd)).resolves.toEqual(arrcontentLinksOkFail));
+// });
