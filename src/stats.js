@@ -6,17 +6,13 @@ const statsLinks = (linksArr) => {
   const uniqueLinks = [...new Set(linksArr.map((links) => links.href))].length;
   console.log(clc.blueBright(`✔  Total: ${totalLinks}`));
   console.log(clc.yellowBright(`✔  Unique: ${uniqueLinks}`));
-  // const result = `
-  // Total: ${totalLinks}
-  // Unique: ${uniqueLinks}`;
-  // return (result);
 };
-// console.log(statsLinks(linksArry));
 
 
 // Contabiliza links: Totals, Unique y Broken
 const statsAllLinks = (linksArr) => {
   const totalLinks = linksArr.length;
+  // operador de propagación ... descomponemos el array de elementos y pasamos por cada uno de ellos
   const uniqueLinks = [...new Set(linksArr.map((links) => links.href))].length;
   const brokenLinks = linksArr.filter((element) => element.statustext === 'fail').length;
   console.log(clc.blueBright(`✔  Total: ${totalLinks}`));
