@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const clc = require('cli-color');
 const {
   mdLinks,
 } = require('./index.js');
@@ -22,7 +23,9 @@ const cli = (path, options, stats) => {
   if (options === '--validate' && stats === '--stats') {
     return mdLinks(path, { validate: true })
       .then((result) => {
-        statsAllLinks(result);
+        console.log(clc.blueBright(`✔  Total: ${statsAllLinks(result).total}`));
+        console.log(clc.yellowBright(`✔  Unique: ${statsAllLinks(result).unique}`));
+        console.log(clc.redBright(`✖  Broken: ${statsAllLinks(result).broken}`));
       })
       .catch((error) => {
         console.log('error', error);
@@ -38,7 +41,8 @@ const cli = (path, options, stats) => {
   } if (options === '--stats') {
     return mdLinks(path, { validate: true })
       .then((result) => {
-        statsLinks(result);
+        console.log(clc.blueBright(`✔  Total: ${statsLinks(result).total}`));
+        console.log(clc.yellowBright(`✔  Unique: ${statsLinks(result).unique}`));
       })
       .catch((error) => {
         console.log('error', error);
