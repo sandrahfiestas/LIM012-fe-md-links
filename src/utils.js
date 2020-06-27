@@ -15,7 +15,6 @@ const isFile = (namePath) => fs.statSync(namePath).isFile();
 // Determina si la ruta es a un directorio
 const isDirectory = (namePath) => fs.statSync(namePath).isDirectory();
 
-
 // Recorre directorio
 const checkDirectory = (namePath) => {
   let arrayFile = [];
@@ -52,7 +51,6 @@ const filterIsMd = (arryFile) => {
   return arrayIsMd;
 };
 
-
 // Retornará un array de objetos con tres propiedades
 const findUrl = (mdfile) => {
   const data = fs.readFileSync(mdfile, 'utf8');
@@ -65,9 +63,9 @@ const findUrl = (mdfile) => {
   if (links) {
     for (let i = 0; i < links.length; i += 1) {
       const linkElement = {
+        file: mdfile,
         href: links[i],
         text: text[i],
-        file: mdfile,
       };
       urls.push(linkElement);
     }
