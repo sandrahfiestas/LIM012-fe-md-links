@@ -176,13 +176,3 @@ describe('validateLinks', () => {
       .catch(() => done());
   });
 });
-
-
-// // Validate
-// describe('validateLinks', () => {
-//   it('debería ser una función', () => {
-//     expect(typeof utils.validateLinks).toBe('function');
-//   });
-//   it('debería devolver un array de objetos con cinco propiedades',
-//     () => expect(utils.validateLinks(pathMd)).resolves.toEqual(arrcontentLinksOkFail));
-// });
