@@ -1,5 +1,14 @@
 # Markdown Links
 
+## Diagrama de flujo
+
+![api](https://github.com/sandrahfiestas/LIM012-fe-md-links/blob/markdown/images/API.jpg)
+
+
+## Diagrama de flujo
+![cli](https://github.com/sandrahfiestas/LIM012-fe-md-links/blob/markdown/images/CLI.jpg)
+
+
 ## Preámbulo
 
 [Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
