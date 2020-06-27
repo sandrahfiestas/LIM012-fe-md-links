@@ -30,7 +30,8 @@ const mdLinks = (path, options) => new Promise((resolve) => {
     });
   }
 });
-// mdLinks(pathAbsoluteX, { validate: true }).then((res) => console.log(res));
+// mdLinks(pathAbsoluteX, { validate: false }).then((res) => console.log(res));
+
 
 module.exports = {
   mdLinks,
