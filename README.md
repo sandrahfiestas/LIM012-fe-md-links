@@ -4,8 +4,8 @@
 
 ![api](https://github.com/sandrahfiestas/LIM012-fe-md-links/blob/markdown/images/API.jpg)
 
-## Diagrama de flujo
 
+## Diagrama de flujo
 ![cli](https://github.com/sandrahfiestas/LIM012-fe-md-links/blob/markdown/images/CLI.jpg)
 
 
