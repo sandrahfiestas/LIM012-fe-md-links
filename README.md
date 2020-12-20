@@ -160,36 +160,4 @@ Unique: 3
 Broken: 1
 ```
 
-## Objetivos de aprendizaje
-
-### Javascript
-- [ ] Uso de callbacks
-- [ ] Consumo de Promesas
-- [✔] Creacion de Promesas
-- [✔] Modulos de Js
-- [✔] Recursión
-
-### Node
-- [✔] Sistema de archivos
-- [✔] package.json
-- [✔] crear modules
-- [✔] Instalar y usar modules
-- [✔] npm scripts
-- [✔] CLI (Command Line Interface - Interfaz de Línea de Comando)
-
-### Testing
-- [✔] Testeo de tus funciones
-- [✔] Testeo asíncrono
-- [ ] Uso de librerias de Mock
-- [✔] Mocks manuales
-- [ ] Testeo para multiples Sistemas Operativos
-
-### Git y Github
-- [✔] Organización en Github
-
-### Buenas prácticas de desarrollo
-- [✔] Modularización
-- [✔] Nomenclatura / Semántica
-- [✔] Linting
-
 ***
